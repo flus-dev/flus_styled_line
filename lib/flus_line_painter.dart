@@ -1,4 +1,4 @@
-library flus_line_painter;
+library flus_styled_line;
 
 /// A Calculator.
 class Calculator {
