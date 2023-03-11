@@ -8,6 +8,7 @@ import 'flus_dotted_shape_corner.dart';
 /// 점선을 그리기 위한 Painter
 ///
 /// color : 선의 색상. Default (black)
+/// strokeCap : 선의 끝 모양. Default (butt)
 /// strokeWidth : 선의 두께. Default (1.0)
 /// dottedLength : 점선의 길이. Default (1.0)
 /// dottedGap : 점선의 간격. Default (1.0)
@@ -15,6 +16,7 @@ import 'flus_dotted_shape_corner.dart';
 /// corner : 점선이 아닐때, 모양을 위한 모서리 Radius. Default (FlusStyledLineCorner.all(0.0))
 class FlusDottedLinePainter extends CustomPainter {
   Color color = Colors.black;
+  StrokeCap strokeCap = StrokeCap.butt;
   double strokeWidth = 1.0;
   double dottedLength = 1.0;
   double dottedGap = 1.0;
@@ -30,13 +32,36 @@ class FlusDottedLinePainter extends CustomPainter {
       ..filterQuality = FilterQuality.high
       ..style = PaintingStyle.stroke
       ..color = color
-      ..strokeWidth = strokeWidth;
+      ..strokeWidth = strokeWidth
+      ..strokeCap = strokeCap;
 
     switch (shape) {
       case FlusDottedShape.line:
-        double length = isHorizontal ? size.width : size.height;
-        double count = (length) / (dottedLength + dottedGap);
-        if (count < 2.0) return;
+        final double length = isHorizontal ? size.width : size.height;
+        final double count = (length) / (dottedLength + dottedGap);
+        if (count < 2.0) break;
+
+        // MARK: 원래 조건은 [1번]과 같으나, Painter 내용의 수정이 필요해서 [2번] 조건으로 변경함.
+        // 1. dottedLength < strokeWidth
+        // 2. strokeCap == StrokeCap.round
+        if (strokeCap == StrokeCap.round) {
+          // dottedSize = dottedLength
+          final jointSize = dottedLength + dottedGap;
+          final leapSize = (length + dottedGap) % jointSize;
+
+          final verticalOverflow = dottedLength / 2;
+          double position = verticalOverflow + leapSize / 2;
+          List<Offset> points = [];
+
+          // position + pointSize <= with + pointSize
+          do {
+            points.add(Offset(position, verticalOverflow));
+          } while ((position += jointSize) <= length);
+
+          canvas.drawPoints(PointMode.points, points, paint);
+          break;
+        }
+
         var startOffset = const Offset(0, 0);
         for (int i = 0; i < count.toInt(); i++) {
           canvas.drawLine(

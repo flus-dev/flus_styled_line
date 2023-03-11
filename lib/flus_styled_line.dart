@@ -1,3 +1,3 @@
 library flus_styled_line;
 
-export 'src/dotted/_dotted.dart';
+export 'src/flus_styled_line.dart';
