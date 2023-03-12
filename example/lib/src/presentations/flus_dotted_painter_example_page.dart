@@ -26,7 +26,6 @@ class FlusDottedPainterExamplePage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               CustomPaint(
-                // TODO: 끝에 덜 나온다. 조금 더 수정이 필요하다.
                 painter: FlusDottedLinePainter()
                   ..dottedGap = 8
                   ..dottedLength = 8,
@@ -42,7 +41,6 @@ class FlusDottedPainterExamplePage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               CustomPaint(
-                // TODO: 끝에 덜 나온다. 조금 더 수정이 필요하다.
                 painter: FlusDottedLinePainter()
                   ..strokeWidth = 10
                   ..dottedGap = 8

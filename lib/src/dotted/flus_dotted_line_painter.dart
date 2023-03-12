@@ -38,18 +38,20 @@ class FlusDottedLinePainter extends CustomPainter {
     switch (shape) {
       case FlusDottedShape.line:
         final double length = isHorizontal ? size.width : size.height;
-        final double count = (length) / (dottedLength + dottedGap);
+        final double count =
+            ((length) / (dottedLength + dottedGap)).round() * 1.0;
         if (count < 2.0) break;
+
+        final double verticalOverflow = dottedLength / 2;
 
         // MARK: 원래 조건은 [1번]과 같으나, Painter 내용의 수정이 필요해서 [2번] 조건으로 변경함.
         // 1. dottedLength < strokeWidth
         // 2. strokeCap == StrokeCap.round
         if (strokeCap == StrokeCap.round) {
           // dottedSize = dottedLength
-          final jointSize = dottedLength + dottedGap;
-          final leapSize = (length + dottedGap) % jointSize;
+          final double jointSize = dottedLength + dottedGap;
+          final double leapSize = (length + dottedGap) % jointSize;
 
-          final verticalOverflow = dottedLength / 2;
           double position = verticalOverflow + leapSize / 2;
           List<Offset> points = [];
 
