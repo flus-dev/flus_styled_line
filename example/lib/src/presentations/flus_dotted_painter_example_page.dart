@@ -59,7 +59,7 @@ class FlusDottedPainterExamplePage extends StatelessWidget {
                   ..dottedLength = 1,
                 child: Container(
                   margin: const EdgeInsets.only(top: 10),
-                  child: const Text('strokeWidth & 간격 & 길이 변경'),
+                  child: const Text('strokeCap & strokeWidth & 간격 & 길이 변경'),
                 ),
               ),
             ],

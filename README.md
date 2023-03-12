@@ -16,6 +16,67 @@ know whether this package might be useful for them.
 
 ## Features
 
+### FlusDottedLinePainter
+
+```dart
+/// 기본 점선
+CustomPaint(
+  painter: FlusDottedLinePainter(),
+  child: const Text('기본 점선'),
+)
+
+/// 색상 변경
+CustomPaint(
+  painter: FlusDottedLinePainter()..color = Colors.red,
+  child: const Text('색상 변경'),
+)
+
+
+/// 간격 & 길이 변경
+CustomPaint(
+  painter: FlusDottedLinePainter()
+    ..dottedGap = 8
+    ..dottedLength = 8,
+  child: const Text('간격 & 길이 변경'),
+)
+
+/// strokeWidth 변경
+CustomPaint(
+  painter: FlusDottedLinePainter()..strokeWidth = 10,
+  child: Container(
+    margin: const EdgeInsets.only(top: 10),
+    child: const Text('strokeWidth 변경'),
+  ),
+)
+
+/// strokeWith & 간격 & 길이 변경
+CustomPaint(
+  painter: FlusDottedLinePainter()
+    ..strokeWidth = 10
+    ..dottedGap = 8
+    ..dottedLength = 8,
+  child: Container(
+    margin: const EdgeInsets.only(top: 10),
+    child: const Text('strokeWidth & 간격 & 길이 변경'),
+  ),
+)
+
+/// strokeCap & strokeWith & 간격 & 길이 변경
+CustomPaint(
+  painter: FlusDottedLinePainter()
+    ..strokeCap = StrokeCap.round
+    ..strokeWidth = 10
+    ..dottedGap = 20
+    ..dottedLength = 1,
+  child: Container(
+    margin: const EdgeInsets.only(top: 10),
+    child: const Text('strokeCap & strokeWidth & 간격 & 길이 변경'),
+  ),
+)
+```
+
+[FlusDottedLinePainter examples](/assets/images/flus_dotted_line_painter_example.jpg)
+
 TODO: List what your package can do. Maybe include images, gifs, or videos.
 
 ## Getting started
